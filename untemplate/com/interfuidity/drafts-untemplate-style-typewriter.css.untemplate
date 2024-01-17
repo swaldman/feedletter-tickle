@@ -1,0 +1,186 @@
+:root {
+    --title-offset: -1em;
+    --prev-next-color: #DDD;
+    --menu-link-color: #DDD;
+    --link-blue: rgb(53,67,240);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: "Courier New", Courier, monospace;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-height: 100vh;
+    margin: 0;
+}
+main {
+    flex-shrink: 1;
+    flex-grow:   1;
+    max-width: 40em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    padding-top: 2rem;
+    /* overflow-x: visible; */ /* any use of overflow breaks left-overhanging title. (?) */
+    /* overflow-y: hidden; */
+    /* border: green solid 1px; */
+}
+b, strong {
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+}
+i, em {
+    /* letter-spacing: -0.015em; */
+    /* I prefer the synthesized slant... */
+    font-family: "Courier New", Courier, monospace;
+    font-style: italic;
+}
+b i, b em, strong i, strong em, i b, em b, i strong, em strong {
+    /* letter-spacing: -0.05em; */
+    font-family: "Courier New", Courier, monospace;
+    font-style: italic;
+    font-weight: bold;
+}
+h1, h2, h3, h4, h5 {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-weight: normal;
+}
+hr {
+    border-top: 1px solid black;
+}
+blockquote {
+    font-size: 90%;
+    line-height: 110%;
+    margin-left: 0.0em;
+    padding-left: 2em;
+    border-left: 1px solid var( --link-blue );
+}
+div.entry-header h1 {
+    position: relative;
+    left: var( --title-offset );
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-weight: bold;
+}
+div.entry-header h1 a {
+    color: black;
+    text-decoration: none;
+}
+
+div.entry-body a {
+    text-decoration: none;
+    color: var( --link-blue );
+    position: relative;
+}
+div.entry-body a:hover {
+    color: red;
+}
+div.entry-body a i, div.entry-body a em, div.entry-body i a, div.entry-body em a {
+    font-style: oblique;
+}
+div.entry-body {
+    text-align: justify;
+    line-height: 150%;
+}
+div.entry-body p {
+  margin-top: 1.125em;
+}
+div.entry-footer a {
+    /* color: var( --link-blue ); */
+    color: blue; /* we just like the richer blue for this small link */
+}
+div.entry-footer a:visited {
+    /* color: var( --link-blue ); */
+    color: blue; /* we just like the richer blue for this small link */
+}
+div.entry-footer .post-metainfo {
+    font-size: 9pt;
+    text-align: right;
+    line-height: 120%;
+}
+a#rss-link {
+    color: black;
+    text-decoration: none;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+}
+a#rss-link span {
+    color: #FF8800;
+}
+.flexmark .footnotes p {
+    display: inline;
+}
+.flexmark .footnotes a.footnote-backref {
+    font-size: smaller;
+}
+.flexmark .footnotes a.footnote-backref:before {
+    content: none;
+}
+.flexmark .footnotes a.footnote-backref:after {
+    content: none;
+}
+.footnotes {
+    font-size: smaller;
+    line-height: 120%;
+}
+header {
+  border: 0;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  background-color: #cccccc;
+  font-size: smaller;
+  /* opacity: 0.5; */
+  border-bottom: 2px solid black;
+}
+header i, header em {
+    /* letter-spacing: -0.015em; */
+    /* I prefer the synthesized slant... */
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-style: italic;
+}
+
+footer {
+    flex-grow:       0;
+    flex-shrink:     0;
+    margin-top:      4em;
+    padding-top:     4em;
+    padding-bottom:  1em;
+    margin-left:     1em;
+    margin-right:    1em;
+    
+    font-size: 10pt;
+    /* border: red solid 1px; */
+}
+footer a {
+    color: gray;
+    text-decoration: none;
+}
+footer a:hover {
+    color: gray;
+    text-decoration: black underline;
+}
+
+
+
+@media only screen and (max-width: 700px) {
+    :root {
+        --title-offset: 0em;
+    }
+    main {
+        max-width: clear;
+        margin-left: 2em;;
+        margin-right: 2em;;
+    }
+    footer {
+        min-height: 1.5em; /* bigger on desktop to prevent occlusion by link targets on hover */
+    }
+    hr.entry-separator::before {
+        content: '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -';
+    }
+}

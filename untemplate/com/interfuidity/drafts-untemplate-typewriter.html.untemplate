@@ -1,0 +1,44 @@
+import java.time.format.{DateTimeFormatter,FormatStyle}
+
+val contents = info.contents
+
+
+( info : ComposeInfo.Single )[]~()>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="drafts @ interfluidity">
+    <meta name="keywords" content="Finance, Economics, Politics, Social Affairs, Social Science, interfluidity">
+    <meta name="author" content="Steve Randy Waldman">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="alternate" type="application/rss+xml" title="draft.interfluidity.com updates" href="feed/index.rss">
+    <link rel="alternate" type="application/rss+xml" title="interfluidity - all blogs" href="https://www.interfluidity.com/unify-rss/all-blogs.rss">
+    <link rel="alternate" type="application/rss+xml" title="interfluidity - all blogs and microblogs" href="https://www.interfluidity.com/unify-rss/all-blogs-and-microblogs.rss">
+    <style>
+      <( drafts_untemplate_style_typewriter_css().text )>
+    </style>  
+    <title>interfluidity drafts: <( contents.title.getOrElse("(untitled)") )></title>
+  </head>
+  <body>
+    <header>
+      <p>
+        A <a href="<( contents.link.getOrElse("") )>">new post</a> by <( contents.author.getOrElse("an unknown author") )>
+	has been published to <i><( info.subscribableName )></i>. You are subscribed as <code>%ToEmail%</code>.
+      </p>
+      <p>
+	To unsubscribe, click <a href="%RemoveLink%">here</a>.
+      </p>
+    </header>  
+    <main>
+      <article class="presentation-single">
+        <div class="entry-header">
+         <h1><a href="<( contents.link.getOrElse("") )>"><( contents.title.getOrElse("(untitled)")  )></a></h1>
+        </div>
+        <div class="entry-body">
+          <( contents.article.getOrElse("") )>
+        </div>
+      </article>
+  </body>
+</html>  
