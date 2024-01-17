@@ -20,7 +20,14 @@ end htmlTitle
       .post-metainfo {
           display: none;
       }
-      body.drafts-local {
+      pre {
+          background-color: #cceeff;
+          overflow-x: scroll;
+          padding-top: 1em;
+          padding-left: 1em;
+          border: 1px solid black;
+      }
+      body.tech-local {
           background-color: #eff3f5;
       }
     </style>
@@ -28,7 +35,7 @@ end htmlTitle
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><( htmlTitle )></title>
   </head>
-  <body class="drafts-local">
+  <body class="tech-local">
     <p>Dear %ToNicknameOrEmail%,</p>
 <()
   info match
