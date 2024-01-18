@@ -27,15 +27,12 @@ end htmlTitle
           padding-left: 1em;
           border: 1px solid black;
       }
-      body.tech-local {
-          background-color: #eff3f5;
-      }
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><( htmlTitle )></title>
   </head>
-  <body class="tech-local">
+  <body>
     <p>Dear %ToNicknameOrEmail%,</p>
 <()
   info match
