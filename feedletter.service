@@ -3,7 +3,7 @@ Description=Feedletter RSS-To-Mail-Etc Service
 After=syslog.target network.target
 
 [Service]
-Type=simple
+Type=forking
 User=feedletter
 Group=feedletter
 WorkingDirectory=/home/feedletter/feedletter-tickle
