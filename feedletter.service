@@ -12,8 +12,7 @@ WorkingDirectory=/home/feedletter/feedletter-tickle
 ExecStart=/bin/bash -c "JAVA_HOME=/usr/local/pkg/jdk17 PATH=${PATH}:${JAVA_HOME}/bin ./feedletter daemon --fork"
 
 TimeoutStopSec=90
-#Restart=on-failure
-Restart=always
+Restart=on-failure
 RestartSec=10s
 StandardError=journal
 StandardOutput=journal
