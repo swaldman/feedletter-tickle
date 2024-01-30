@@ -18,7 +18,17 @@ val DraftsMastonotifyCustomizer : Customizer.MastoAnnouncement =
     content.link.map: url =>
       val title = content.title.getOrElse("(untitled)")
       s"[new draft post] ${title} ${url}"
-      
+val TechSubjectCustomizer : Customizer.Subject =
+  ( subscribableName : SubscribableName, subscriptionManager : SubscriptionManager, withinTypeId : String, feedUrl : FeedUrl, contents : Seq[ItemContent] ) =>
+    contents.size match
+      case 1 =>
+        val ic = contents.head
+        val title = ic.title
+        title match
+          case Some(t) => s"[interfluidity-tech] New Entry: $t"
+          case None    => s"[interfluidity-tech] New Untitled Entry"
+      case n =>   
+        s"[interfluidity-tech] $n new entries"
 
 object PreMain:
   def main( args : Array[String] ) : Unit =
@@ -26,6 +36,7 @@ object PreMain:
     Customizer.MastoAnnouncement.register("tech-mastonotify", TechMastonotifyCustomizer)
     Customizer.MastoAnnouncement.register("interfluidity-main-mastonotify", MainMastonotifyCustomizer)
     Customizer.MastoAnnouncement.register("drafts-mastonotify", DraftsMastonotifyCustomizer)
+    Customizer.Subject.register("interfluidity-tech", TechSubjectCustomizer)
     val styleExec =
       sys.env.get("FEEDLETTER_STYLE") match
         case Some( s ) => s.toBoolean
