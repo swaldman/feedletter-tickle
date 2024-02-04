@@ -23,9 +23,13 @@ end htmlTitle
       pre {
           background-color: #cceeff;
           overflow-x: scroll;
+          -webkit-overflow-scrolling: touch;
+          white-space: pre; /* seem obvious, but failing on ios mobile without being explicit */
           padding-top: 1em;
           padding-left: 1em;
+          padding-bottom: 1em;
           border: 1px solid black;
+          line-height: 100%;
       }
       .entry-body div.note::before {
           content: "☞ Note";
