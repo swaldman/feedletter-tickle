@@ -32,7 +32,9 @@ object feedletter extends RootModule with DaemonModule with UntemplateModule {
   }
 
   def ivyDeps = Agg(
-    ivy"com.mchange::feedletter:0.0.9"
+    ivy"com.mchange::feedletter:0.0.9",
+    ivy"com.mchange:c3p0:0.10.0-pre4",
+    ivy"com.mchange:c3p0-loom:0.10.0-pre4"
   )
 
   // we'll build an index!
