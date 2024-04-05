@@ -14,7 +14,7 @@ import com.mchange.milldaemon.DaemonModule
 import scala.util.control.NonFatal
 
 object feedletter extends RootModule with DaemonModule with UntemplateModule {
-  def scalaVersion = "3.3.1"
+  def scalaVersion = "3.3.3"
 
   override def scalacOptions = T{ Seq("-deprecation") }
 
@@ -32,7 +32,7 @@ object feedletter extends RootModule with DaemonModule with UntemplateModule {
   }
 
   def ivyDeps = Agg(
-    ivy"com.mchange::feedletter:0.0.9"
+    ivy"com.mchange::feedletter:0.0.10"
   )
 
   // we'll build an index!
