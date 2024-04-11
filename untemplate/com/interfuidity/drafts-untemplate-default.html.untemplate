@@ -20,6 +20,11 @@ end htmlTitle
       .post-metainfo {
           display: none;
       }
+      pre {
+            overflow-x: scroll;
+            -webkit-overflow-scrolling: touch;
+            white-space: pre; /* seem obvious, but failing on ios mobile without being explicit */
+      }
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
