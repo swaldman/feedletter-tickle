@@ -1,0 +1,109 @@
+import java.time.format.{DateTimeFormatter,FormatStyle}
+import com.mchange.feedletter.default.email.*
+
+val htmlTitle =
+  info match
+    case single : ComposeInfo.Single =>
+      s"""[${single.subscribableName}] ${single.contents.title.getOrElse("(untitled post)")}"""
+    case multiple : ComposeInfo.Multiple if multiple.contents.size == 1 =>
+      s"""[${multiple.subscribableName}] New Post: ${multiple.contents.head.title.getOrElse("(untitled)")}"""
+    case multiple : ComposeInfo.Multiple =>
+      s"""[${multiple.subscribableName}] ${multiple.contents.size} new posts"""
+end htmlTitle
+
+( info : ComposeInfo.Universal )[]~()>
+
+<html>
+  <head>
+    <style>
+      <( style_css() )>
+      .post-metainfo {
+          display: none;
+      }
+      pre {
+          background-color: #cceeff;
+          overflow-x: scroll;
+          -webkit-overflow-scrolling: touch;
+          white-space: pre; /* seem obvious, but failing on ios mobile without being explicit */
+          padding-top: 1em;
+          padding-left: 1em;
+          padding-bottom: 1em;
+          border: 1px solid black;
+          line-height: 100%;
+      }
+      .entry-body div.note::before {
+          content: "☞ Note";
+          font-weight: bold;
+          font-style: italic;
+          color: green;
+          display: block;
+      }
+      .entry-body div.note {
+          padding: 1em;
+          margin: 0.5em;
+          border: 2px solid green;
+          background-color: #ccffcc;
+          font-family: Tahoma, Verdana, Arial, sans-serif;
+          font-size: 80%;
+          border-radius: 8px;
+          margin-left: auto;
+          margin-right: auto;
+          width: 80%;
+          line-height: 130%;
+      }
+      .entry-body div.note code {
+          background-color: yellow;
+      }
+      .entry-body div.note pre code {
+          /* background-color: black; */
+          background-color: #cceeff;
+      }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><( htmlTitle )></title>
+  </head>
+  <body>
+    <p>Dear %ToNicknameOrEmail%,</p>
+<()
+  info match
+    case single : ComposeInfo.Single => {
+()>
+    <p>A <( ifLink(single.contents.link, "new post") )> has been published to <b><( single.subscribableName )></b>:</p>
+<()
+      info.contentsSeq.foreach( ic => writer.write( item_html( info, ic ).text ) )
+    }
+    case multiple : ComposeInfo.Multiple if multiple.contents.size == 1 => {
+()>
+    <p>A <( ifLink(multiple.contents.head.link, "new post") )> has been published to <b><( multiple.subscribableName )></b>:</p>
+<()
+      info.contentsSeq.foreach( ic => writer.write( item_html( info, ic ).text ) )
+    }
+    case multiple : ComposeInfo.Multiple => {
+      val (longform,micro) = interfluidityLongformMicro( multiple )
+()>
+  <p>The following <( multiple.contents.size )> posts have been published to <b><( info.subscribableName )></b>:</p>
+<()
+      if longform.nonEmpty then {
+()>
+    <h2>Longform posts</h2>  
+<()    
+        longform.foreach( ic => writer.write( item_html( info, ic ).text ) )
+      }
+      if micro.nonEmpty then {
+()>
+    <h2>Microblog posts</h2>  
+<()  
+        micro.foreach( ic => writer.write( item_html( info, ic ).text ) )
+      }
+    }
+()>
+
+    <div class="unsubscribe">
+      <p>
+        You are subscribed as <code>%ToEmail%</code> to the mailing list <b><( info.subscribableName )></b>.
+        We'd miss you, but you can click <a href="%RemoveLink%">here</a> to unsubscribe.
+      </p>
+    </div>
+  </body>
+</html>
