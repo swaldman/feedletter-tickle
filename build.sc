@@ -6,7 +6,7 @@ import $ivy.`com.lihaoyi::mill-contrib-bloop:$MILL_VERSION`
 
 import $ivy.`com.mchange::mill-daemon:0.0.1`
 
-import $ivy.`com.mchange::untemplate-mill:0.1.2`
+import $ivy.`com.mchange::untemplate-mill:0.1.4`
 
 import untemplate.mill._
 import com.mchange.milldaemon.DaemonModule
@@ -32,7 +32,7 @@ object feedletter extends RootModule with DaemonModule with UntemplateModule {
   }
 
   def ivyDeps = Agg(
-    ivy"com.mchange::feedletter:0.0.12",
+    ivy"com.mchange::feedletter:0.0.13",
     ivy"com.mchange:c3p0-loom:0.10.1"
   )
 

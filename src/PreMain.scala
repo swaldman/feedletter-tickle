@@ -1,27 +1,25 @@
 import com.mchange.feedletter.*
 import com.mchange.feedletter.style.{AllUntemplates,StyleMain}
 
-import com.mchange.feedletter.style.Customizer
-
 import java.time.ZoneId
 
 val TechMastonotifyCustomizer : Customizer.MastoAnnouncement =
-  ( subscribableName : SubscribableName, subscriptionManager : SubscriptionManager, withinTypeId : String, feedUrl : FeedUrl, content : ItemContent, timeZone : ZoneId ) =>
+  ( subscribableName : SubscribableName, subscriptionManager : SubscriptionManager, feedUrl : FeedUrl, content : ItemContent, timeZone : ZoneId ) =>
     content.link.map: url =>
       val title = content.title.getOrElse("(untitled)")
       s"[tech notebook] ${title} ${url}"
 val MainMastonotifyCustomizer : Customizer.MastoAnnouncement =
-  ( subscribableName : SubscribableName, subscriptionManager : SubscriptionManager, withinTypeId : String, feedUrl : FeedUrl, content : ItemContent, timeZone : ZoneId ) =>
+  ( subscribableName : SubscribableName, subscriptionManager : SubscriptionManager, feedUrl : FeedUrl, content : ItemContent, timeZone : ZoneId ) =>
     content.link.map: url =>
       val title = content.title.getOrElse("(untitled)")
       s"[New Post] ${title} ${url}"
 val DraftsMastonotifyCustomizer : Customizer.MastoAnnouncement =
-  ( subscribableName : SubscribableName, subscriptionManager : SubscriptionManager, withinTypeId : String, feedUrl : FeedUrl, content : ItemContent, timeZone : ZoneId ) =>
+  ( subscribableName : SubscribableName, subscriptionManager : SubscriptionManager, feedUrl : FeedUrl, content : ItemContent, timeZone : ZoneId ) =>
     content.link.map: url =>
       val title = content.title.getOrElse("(untitled)")
       s"[new draft post] ${title} ${url}"
 val TechSubjectCustomizer : Customizer.Subject =
-  ( subscribableName : SubscribableName, subscriptionManager : SubscriptionManager, withinTypeId : String, feedUrl : FeedUrl, contents : Seq[ItemContent], timeZone : ZoneId ) =>
+  ( subscribableName : SubscribableName, subscriptionManager : SubscriptionManager, feedUrl : FeedUrl, contents : Seq[ItemContent], timeZone : ZoneId ) =>
     contents.size match
       case 1 =>
         val ic = contents.head
