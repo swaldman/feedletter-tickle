@@ -9,7 +9,7 @@ def itemProvenance( item : Elem ) : Option[String] =
     .map( _ \@ "href" )
     .headOption
 
-def itemContentProvenance( itemContent : ItemContent ) : Option[String] = itemProvenance( (itemContent.rssElem \\ "item").head.asInstanceOf[Elem] )
+def itemContentProvenance( itemContent : ItemContent ) : Option[String] = itemProvenance( (itemContent.rssElemBeforeOverrides \\ "item").head.asInstanceOf[Elem] )
 
 val LongformSomeHrefs : Set[Option[String]] =
   Set("https://www.interfluidity.com/feed","https://drafts.interfluidity.com/feed/index.rss","https://tech.interfluidity.com/feed/index.rss").map(Some.apply)
