@@ -36,6 +36,9 @@ object feedletter extends RootModule with DaemonModule with UntemplateModule {
     ivy"com.mchange:c3p0-loom:0.10.1"
   )
 
+  override def runDaemonOut : os.ProcessOutput = os.InheritRaw
+  override def runDaemonErr : os.ProcessOutput = os.InheritRaw
+
   // we'll build an index!
   override def untemplateIndexNameFullyQualified : Option[String] = Some("com.mchange.feedletter.UserUntemplates")
 
