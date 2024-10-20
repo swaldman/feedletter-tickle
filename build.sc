@@ -13,7 +13,7 @@ import com.mchange.milldaemon.DaemonModule
 
 import scala.util.control.NonFatal
 
-object feedletter extends RootModule with DaemonModule with UntemplateModule {
+object `package` extends RootModule with DaemonModule with UntemplateModule {
   def scalaVersion = "3.3.4"
 
   override def scalacOptions = T{ Seq("-deprecation") }
@@ -27,8 +27,11 @@ object feedletter extends RootModule with DaemonModule with UntemplateModule {
         case NonFatal(t) =>
           throw new Exception( s"Could not parse absolute path of desired PID file from contents of ${pidFilePathFile}. Please repair or remove this file.", t )
       }
-    else
-      Some( os.pwd / "feedletter.pid" )
+    else {
+        val out = Some( os.pwd / "feedletter.pid" )
+        println(s"pid file: $out")
+        out
+      }
   }
 
   def ivyDeps = Agg(
