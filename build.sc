@@ -28,7 +28,8 @@ object `package` extends RootModule with DaemonModule with UntemplateModule {
           throw new Exception( s"Could not parse absolute path of desired PID file from contents of ${pidFilePathFile}. Please repair or remove this file.", t )
       }
     else {
-        val out = Some( os.pwd / "feedletter.pid" )
+        val projectDir = sys.env.get("MILL_WORKSPACE_ROOT").map(mwr => os.Path(mwr)).getOrElse(os.pwd) // see https://mill-build.org/mill/depth/sandboxing.html
+        val out = Some( projectDir / "feedletter.pid" )
         println(s"pid file: $out")
         out
       }
