@@ -4,7 +4,7 @@ import mill._, scalalib._
 
 import $ivy.`com.lihaoyi::mill-contrib-bloop:$MILL_VERSION`
 
-import $ivy.`com.mchange::mill-daemon:0.0.2`
+import $ivy.`com.mchange::mill-daemon:0.1.1`
 
 import $ivy.`com.mchange::untemplate-mill:0.1.4`
 
@@ -18,7 +18,7 @@ object `package` extends RootModule with DaemonModule with UntemplateModule {
 
   override def scalacOptions = T{ Seq("-deprecation") }
 
-  val pidFilePathFile = os.pwd / ".feedletter-pid-file-path"
+  val pidFilePathFile = mill.api.WorkspaceRoot.workspaceRoot / ".feedletter-pid-file-path"
 
   override def runDaemonPidFile = {
     if ( os.exists( pidFilePathFile ) )
@@ -28,15 +28,14 @@ object `package` extends RootModule with DaemonModule with UntemplateModule {
           throw new Exception( s"Could not parse absolute path of desired PID file from contents of ${pidFilePathFile}. Please repair or remove this file.", t )
       }
     else {
-        val projectDir = sys.env.get("MILL_WORKSPACE_ROOT").map(mwr => os.Path(mwr)).getOrElse(os.pwd) // see https://mill-build.org/mill/depth/sandboxing.html
+        val projectDir = mill.api.WorkspaceRoot.workspaceRoot
         val out = Some( projectDir / "feedletter.pid" )
-        println(s"pid file: $out")
         out
       }
   }
 
   def ivyDeps = Agg(
-    ivy"com.mchange::feedletter:0.0.15",
+    ivy"com.mchange::feedletter:0.0.16",
     ivy"com.mchange:c3p0-loom:0.10.1"
   )
 
