@@ -4,7 +4,7 @@ import mill._, scalalib._
 
 import $ivy.`com.lihaoyi::mill-contrib-bloop:$MILL_VERSION`
 
-import $ivy.`com.mchange::mill-daemon:0.0.1`
+import $ivy.`com.mchange::mill-daemon:0.0.2`
 
 import $ivy.`com.mchange::untemplate-mill:0.1.4`
 
@@ -36,12 +36,13 @@ object `package` extends RootModule with DaemonModule with UntemplateModule {
   }
 
   def ivyDeps = Agg(
-    ivy"com.mchange::feedletter:0.0.14",
+    ivy"com.mchange::feedletter:0.0.15",
     ivy"com.mchange:c3p0-loom:0.10.1"
   )
 
-  override def runDaemonOut : os.ProcessOutput = os.InheritRaw
-  override def runDaemonErr : os.ProcessOutput = os.InheritRaw
+  // these are now defailts in mill-daemon v0.0.2
+  // override def runDaemonOut : os.ProcessOutput = os.InheritRaw
+  // override def runDaemonErr : os.ProcessOutput = os.InheritRaw
 
   // we'll build an index!
   override def untemplateIndexNameFullyQualified : Option[String] = Some("com.mchange.feedletter.UserUntemplates")
