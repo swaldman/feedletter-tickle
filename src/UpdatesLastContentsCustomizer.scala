@@ -7,7 +7,7 @@ import audiofluidity.rss.{Element,Synthetic}
 
 import java.time.ZoneId
 
-val UpdatesLastContentCustomizer : Customizer.Contents =
+val UpdatesLastContentsCustomizer : Customizer.Contents =
   ( _ : SubscribableName, _ : SubscriptionManager, feedUrl : FeedUrl, itemContents : Seq[ItemContent], _ : ZoneId ) =>
     val (updateAnnouncements, rest) = itemContents.partition(isUpdateAnnouncement)
     updateAnnouncements.length match
