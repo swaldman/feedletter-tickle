@@ -30,8 +30,6 @@ val TechSubjectCustomizer : Customizer.Subject =
       case n =>   
         s"[interfluidity-tech] $n new entries"
 
-val TechContentsCustomizer = UpdatesLastContentCustomizer
-
 object PreMain:
   def main( args : Array[String] ) : Unit =
     AllUntemplates.add( UserUntemplates )
@@ -39,7 +37,11 @@ object PreMain:
     Customizer.MastoAnnouncement.register("interfluidity-main-mastonotify", MainMastonotifyCustomizer)
     Customizer.MastoAnnouncement.register("drafts-mastonotify", DraftsMastonotifyCustomizer)
     Customizer.Subject.register("interfluidity-tech", TechSubjectCustomizer)
-    Customizer.Contents.register("interfluidity-tech", TechContentsCustomizer)
+
+    Customizer.Contents.register("interfluidity-tech",            UpdatesLastContentsCustomizer)
+    Customizer.Contents.register("interfluidity-weekly",          UpdatesLastContentsCustomizer)
+    Customizer.Contents.register("interfluidity-longform-weekly", UpdatesLastContentsCustomizer)
+
     val styleExec =
       sys.env.get("FEEDLETTER_STYLE") match
         case Some( s ) => s.toBoolean
