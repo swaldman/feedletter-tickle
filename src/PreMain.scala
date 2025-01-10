@@ -18,6 +18,11 @@ val DraftsMastonotifyCustomizer : Customizer.MastoAnnouncement =
     content.link.map: url =>
       val title = content.title.getOrElse("(untitled)")
       s"[new draft post] ${title} ${url}"
+      
+val TechBskynotifyCustomizer   : Customizer.BskyAnnouncement = TechMastonotifyCustomizer
+val MainBskynotifyCustomizer   : Customizer.BskyAnnouncement = MainMastonotifyCustomizer
+val DraftsBskynotifyCustomizer : Customizer.BskyAnnouncement = DraftsMastonotifyCustomizer
+
 val TechSubjectCustomizer : Customizer.Subject =
   ( subscribableName : SubscribableName, subscriptionManager : SubscriptionManager, feedUrl : FeedUrl, contents : Seq[ItemContent], timeZone : ZoneId ) =>
     contents.size match
@@ -33,9 +38,15 @@ val TechSubjectCustomizer : Customizer.Subject =
 object PreMain:
   def main( args : Array[String] ) : Unit =
     AllUntemplates.add( UserUntemplates )
+
     Customizer.MastoAnnouncement.register("tech-mastonotify", TechMastonotifyCustomizer)
     Customizer.MastoAnnouncement.register("interfluidity-main-mastonotify", MainMastonotifyCustomizer)
     Customizer.MastoAnnouncement.register("drafts-mastonotify", DraftsMastonotifyCustomizer)
+
+    Customizer.BskyAnnouncement.register("tech-bskynotify", TechBskynotifyCustomizer)
+    Customizer.BskyAnnouncement.register("interfluidity-main-bskynotify", MainBskynotifyCustomizer)
+    Customizer.BskyAnnouncement.register("drafts-bskynotify", DraftsBskynotifyCustomizer)
+
     Customizer.Subject.register("interfluidity-tech", TechSubjectCustomizer)
 
     Customizer.Contents.register("interfluidity-tech",            UpdatesLastContentsCustomizer)
