@@ -14,7 +14,7 @@ import com.mchange.milldaemon.DaemonModule
 import scala.util.control.NonFatal
 
 object `package` extends RootModule with DaemonModule with UntemplateModule {
-  def scalaVersion = "3.3.4"
+  def scalaVersion = "3.3.5"
 
   override def scalacOptions = T{ Seq("-deprecation") }
 
@@ -35,8 +35,8 @@ object `package` extends RootModule with DaemonModule with UntemplateModule {
   }
 
   def ivyDeps = Agg(
-    ivy"com.mchange::feedletter:0.1.3",
-    ivy"com.mchange:c3p0-loom:0.10.1"
+    ivy"com.mchange::feedletter:0.1.4",
+    ivy"com.mchange:c3p0-loom:0.11.0-pre1"
   )
 
   // these are now defailts in mill-daemon v0.0.2
