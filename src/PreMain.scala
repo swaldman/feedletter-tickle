@@ -37,6 +37,8 @@ val TechSubjectCustomizer : Customizer.Subject =
 
 object PreMain:
   def main( args : Array[String] ) : Unit =
+    // println("PreMain beginning.")
+    
     AllUntemplates.add( UserUntemplates )
 
     Customizer.MastoAnnouncement.register("tech-mastonotify", TechMastonotifyCustomizer)
@@ -58,4 +60,6 @@ object PreMain:
         case Some( s ) => s.toBoolean
         case None      => false
     if styleExec then StyleMain.main(args) else Main.main(args)
+
+    // println("PreMain terminating.")
 
