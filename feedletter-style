@@ -9,9 +9,9 @@ cd "$FEEDLETTER_DIR"
 if [[ "$EXECNAME" == "feedletter-style" ]]; then
     # see https://superuser.com/a/186304
     if [[ "$*" == *"--to"* ]]; then
-        FEEDLETTER_STYLE=true ./millw --no-server runMain PreMain "$@"
+        FEEDLETTER_STYLE=true ./millw --no-server --disable-prompt --ticker=false runMain PreMain "$@"
     else
-        FEEDLETTER_STYLE=true ./millw --no-server --watch runMainBackground PreMain "$@"
+        FEEDLETTER_STYLE=true ./millw --no-server --disable-prompt --ticker=false --watch runMainBackground PreMain "$@"
     fi
 else
     echo "Expected this command to be 'feedletter-style'."
