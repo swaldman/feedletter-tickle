@@ -1,3 +1,8 @@
+//| mill-version: 0.12.14
+//+----------------------
+
+package build
+
 import $meta._
 
 import mill._, scalalib._
@@ -35,8 +40,8 @@ object `package` extends RootModule with DaemonModule with UntemplateModule {
   }
 
   def ivyDeps = Agg(
-    ivy"com.mchange::feedletter:0.1.7",
-    ivy"com.mchange:c3p0-loom:0.11.1"
+    ivy"com.mchange::feedletter:0.1.8",
+    ivy"com.mchange:c3p0-loom:0.11.2"
   )
 
   // these are now defailts in mill-daemon v0.0.2
@@ -65,7 +70,7 @@ object `package` extends RootModule with DaemonModule with UntemplateModule {
    */
   def overwriteLatestMillw() = T.command {
     import java.nio.file.attribute.PosixFilePermission._
-    val target = mill.util.Util.download("https://raw.githubusercontent.com/lefou/millw/main/millw")
+    val target = mill.util.Util.download("https://raw.githubusercontent.com/com-lihaoyi/mill/refs/heads/main/mill")
     val millw = build.millSourcePath / "millw"
     os.copy.over(target.path, millw)
     os.perms.set(millw, os.perms(millw) + OWNER_EXECUTE + GROUP_EXECUTE + OTHERS_EXECUTE)
