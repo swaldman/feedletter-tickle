@@ -26,17 +26,17 @@ end htmlTitle
             white-space: pre; /* seem obvious, but failing on ios mobile without being explicit */
       }
       .flexmark .footnotes p {
-	  display: inline;
+          display: inline;
       }
       .flexmark .footnotes a.footnote-backref {
-	  margin-left: 0.25rem;
+          margin-left: 0.25rem;
       }
       /* sup hack modified from https://stackoverflow.com/questions/1530685/how-can-i-keep-consistent-line-height-with-superscript-elements */
       .flexmark sup /* a.footnote-ref */ {
-	  margin-left: 2px;
-	  vertical-align: 15%;
-	  font-size: 60%;
-	  font-weight: bold;
+          margin-left: 2px;
+          vertical-align: 15%;
+          font-size: 60%;
+          font-weight: bold;
       }
     </style>
     <meta charset="utf-8">
