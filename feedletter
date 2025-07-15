@@ -2,9 +2,9 @@
 
 # Choose between
 
-#./millw --no-server runMainLocal PreMain "$@"
-#./millw --no-server runMainBackground PreMain "$@"
-#./millw --no-server runMain PreMain "$@"
+#./millw --no-daemon runMainLocal PreMain "$@"
+#./millw --no-daemon runMainBackground PreMain "$@"
+#./millw --no-daemon runMain PreMain "$@"
 
 # Style commands need to be run with the -w flag, but are managed
 # by the separate script feedletter-style
@@ -27,11 +27,11 @@ fi
 
 if [[ "$EXECNAME" == "feedletter" ]]; then
     if [[ "$SUBCMD" == "edit-subscribable" ]]; then  # we need native streams...
-        ./millw --no-server --disable-prompt --ticker=false runMainLocal PreMain "$@"
+        ./millw --no-daemon --ticker=false runMainLocal PreMain "$@"
     elif [[  "$SUBCMD" == "daemon" && "$FIRSTARG" == "--fork" ]]; then
-        ./millw --no-server --disable-prompt --ticker=false runMainDaemon PreMain "$@"
+        ./millw --no-daemon --ticker=false runMainDaemon PreMain "$@"
     else
-        ./millw --no-server --disable-prompt --ticker=false runMain PreMain "$@"
+        ./millw --no-daemon --ticker=false runMain PreMain "$@"
     fi
 else
     echo "Expected this command to be 'feedletter'."

@@ -1,29 +1,24 @@
-//| mill-version: 0.12.14
-//+----------------------
+//| mill-version: 1.0.0-jvm
+//| mill-jvm-version: 21
+//| mvnDeps: ["com.lihaoyi::mill-contrib-buildinfo:$MILL_VERSION","com.mchange::mill-daemon:0.2.0","com.mchange::untemplate-mill:0.2.0"]
+//+---------------------------------------------------------------------------------------------------------
 
 package build
 
-import $meta._
+import mill.*, scalalib.*
+import mill.api.BuildCtx
 
-import mill._, scalalib._
-
-import $ivy.`com.lihaoyi::mill-contrib-bloop:$MILL_VERSION`
-
-import $ivy.`com.mchange::mill-daemon:0.1.1`
-
-import $ivy.`com.mchange::untemplate-mill:0.1.4`
-
-import untemplate.mill._
+import untemplate.mill.*
 import com.mchange.milldaemon.DaemonModule
 
 import scala.util.control.NonFatal
 
-object `package` extends RootModule with DaemonModule with UntemplateModule {
+object `package` extends DaemonModule with UntemplateModule {
   def scalaVersion = "3.3.6"
 
-  override def scalacOptions = T{ Seq("-deprecation") }
+  override def scalacOptions = Task { Seq("-deprecation") }
 
-  val pidFilePathFile = mill.api.WorkspaceRoot.workspaceRoot / ".feedletter-pid-file-path"
+  val pidFilePathFile = BuildCtx.workspaceRoot / ".feedletter-pid-file-path"
 
   override def runDaemonPidFile = {
     if ( os.exists( pidFilePathFile ) )
@@ -33,15 +28,15 @@ object `package` extends RootModule with DaemonModule with UntemplateModule {
           throw new Exception( s"Could not parse absolute path of desired PID file from contents of ${pidFilePathFile}. Please repair or remove this file.", t )
       }
     else {
-        val projectDir = mill.api.WorkspaceRoot.workspaceRoot
+        val projectDir = BuildCtx.workspaceRoot
         val out = Some( projectDir / "feedletter.pid" )
         out
       }
   }
 
-  def ivyDeps = Agg(
-    ivy"com.mchange::feedletter:0.1.8",
-    ivy"com.mchange:c3p0-loom:0.11.2"
+  def mvnDeps = Seq(
+    mvn"com.mchange::feedletter:0.2.0",
+    mvn"com.mchange:c3p0-loom:0.11.2"
   )
 
   // these are now defailts in mill-daemon v0.0.2
@@ -62,19 +57,6 @@ object `package` extends RootModule with DaemonModule with UntemplateModule {
     out = out.copy(extraImports=Seq("com.mchange.feedletter.*","com.mchange.feedletter.style.*"))
 
     out
-  }
-
-  /**
-   * Update the millw script.
-   * modified from https://github.com/lefou/millw
-   */
-  def overwriteLatestMillw() = T.command {
-    import java.nio.file.attribute.PosixFilePermission._
-    val target = mill.util.Util.download("https://raw.githubusercontent.com/com-lihaoyi/mill/refs/heads/main/mill")
-    val millw = build.millSourcePath / "millw"
-    os.copy.over(target.path, millw)
-    os.perms.set(millw, os.perms(millw) + OWNER_EXECUTE + GROUP_EXECUTE + OTHERS_EXECUTE)
-    target
   }
 }
 
