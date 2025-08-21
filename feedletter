@@ -2,9 +2,9 @@
 
 # Choose between
 
-#./mill --no-server runMainLocal PreMain "$@"
-#./mill --no-server runMainBackground PreMain "$@"
-#./mill --no-server runMain PreMain "$@"
+#./mill --no-daemon runMainLocal PreMain "$@"
+#./mill --no-daemon runMainBackground PreMain "$@"
+#./mill --no-daemon runMain PreMain "$@"
 
 # Style commands need to be run with the -w flag, but are managed
 # by the separate script feedletter-style
@@ -17,21 +17,28 @@ EXECNAME="$(basename $MAINCMD)"
 
 cd "$FEEDLETTER_DIR"
 
-if [[ "$1" == "--secrets" ]]; then
-    SUBCMD="$3"
-    FIRSTARG="$4"
-else
-    SUBCMD="$1"
-    FIRSTARG="$2"
-fi
+case $1 in
+    --secrets)
+        SUBCMD="$3"
+        FIRSTARG="$4"
+        ;;
+    --secrets*)
+        SUBCMD="$2"
+        FIRSTARG="$3"
+        ;;
+    *)
+        SUBCMD="$1"
+        FIRSTARG="$2"
+        ;;
+esac
 
 if [[ "$EXECNAME" == "feedletter" ]]; then
     if [[ "$SUBCMD" == "edit-subscribable" ]]; then  # we need native streams...
-        ./mill --no-server --disable-prompt --ticker=false runMainLocal PreMain "$@"
+        ./mill --no-daemon --disable-prompt --ticker=false runMainLocal PreMain "$@"
     elif [[  "$SUBCMD" == "daemon" && "$FIRSTARG" == "--fork" ]]; then
-        ./mill --no-server --disable-prompt --ticker=false runMainDaemon PreMain "$@"
+        ./mill --no-daemon --disable-prompt --ticker=false runMainDaemon PreMain "$@"
     else
-        ./mill --no-server --disable-prompt --ticker=false runMain PreMain "$@"
+        ./mill --no-daemon --disable-prompt --ticker=false runMain PreMain "$@"
     fi
 else
     echo "Expected this command to be 'feedletter'."
