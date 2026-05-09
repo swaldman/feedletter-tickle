@@ -1,4 +1,4 @@
-//| mill-version: 1.0.3
+//| mill-version: 1.0.6
 //| mill-jvm-version: 21
 //| mvnDeps: ["com.lihaoyi::mill-contrib-buildinfo:$MILL_VERSION","com.mchange::mill-daemon:0.2.0","com.mchange::untemplate-mill:0.2.0"]
 //+---------------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ object `package` extends DaemonModule with UntemplateModule {
   }
 
   def mvnDeps = Seq(
-    mvn"com.mchange::feedletter:0.2.2",
+    mvn"com.mchange::feedletter:0.2.3",
     mvn"com.mchange:c3p0-loom:0.13.0"
   )
 
