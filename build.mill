@@ -36,7 +36,7 @@ object `package` extends DaemonModule with UntemplateModule {
 
   def mvnDeps = Seq(
     mvn"com.mchange::feedletter:0.3.0",
-    mvn"com.mchange:c3p0-loom:0.14.1"
+    mvn"com.mchange:c3p0-loom:0.15.0"
   )
 
   // these are now defailts in mill-daemon v0.0.2
